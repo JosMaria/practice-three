@@ -1,11 +1,12 @@
 package org.genesiscode.practicethree;
 
-import javafx.application.Application;
-import org.genesiscode.practicethree.view.PaneMain;
+import org.genesiscode.practicethree.view.MainPane;
+
+import static javafx.application.Application.launch;
 
 public class Main {
 
     public static void main(String[] args) {
-        Application.launch(PaneMain.class, args);
+        launch(MainPane.class, args);
     }
 }
