@@ -6,6 +6,7 @@ import javafx.scene.text.Font;
 public class MyPane {
 
     protected Label lblHeader;
+    protected static final int SPACES = 5;
 
     protected MyPane(String titleHeader) {
         lblHeader = new Label(titleHeader);
