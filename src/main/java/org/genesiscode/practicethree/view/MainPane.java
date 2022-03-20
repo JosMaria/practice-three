@@ -4,11 +4,13 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.genesiscode.practicethree.view.pane.*;
 
 public class MainPane extends Application implements EventHandler<ActionEvent> {
 
@@ -23,6 +25,7 @@ public class MainPane extends Application implements EventHandler<ActionEvent> {
     private static final String ADDITIVE = "_Aditivo";
     private static final String QUADRATIC = "_Cuadratico";
     private static final String BLUM_BLUM_SHUB = "_Blum Blum Shub";
+    private static final int PANE_TO_DELETE = 1;
 
     private final VBox mainPane;
     private final MenuItem middleSquaresItem, middleProductsItem, constantMultiplierItem,
@@ -60,19 +63,19 @@ public class MainPane extends Application implements EventHandler<ActionEvent> {
     @Override
     public void handle(ActionEvent actionEvent) {
         MenuItem source = (MenuItem) actionEvent.getSource();
-        String text = switch (source.getText()) {
-            case MIDDLE_SQUARES -> MIDDLE_SQUARES;
-            case MIDDLE_PRODUCTS -> MIDDLE_PRODUCTS;
-            case CONSTANT_MULTIPLIER -> CONSTANT_MULTIPLIER;
-            case MIXED -> MIXED;
-            case MULTIPLICATIVE -> MULTIPLICATIVE;
-            case ADDITIVE -> ADDITIVE;
-            case QUADRATIC -> QUADRATIC;
-            case BLUM_BLUM_SHUB -> BLUM_BLUM_SHUB;
-            default -> "Input not founded";
+        VBox pane = switch (source.getText()) {
+            case MIDDLE_SQUARES -> MiddleSquaresPane.getInstance().getMainPane();
+            case MIDDLE_PRODUCTS -> MiddleProductsPane.getInstance().getMainPane();
+            case CONSTANT_MULTIPLIER -> ConstantMultiplierPane.getInstance().getMainPane();
+            case MIXED -> MixedPane.getInstance().getMainPane();
+            case MULTIPLICATIVE -> MultiplicativePane.getInstance().getMainPane();
+            case ADDITIVE -> AdditivePane.getInstance().getMainPane();
+            case QUADRATIC -> QuadraticPane.getInstance().getMainPane();
+            case BLUM_BLUM_SHUB -> BlumBlumShubPane.getInstance().getMainPane();
+            default -> new VBox(new Label("ERROR"));
         };
 
-        System.out.println(text);
+        setBottomPane(pane);
     }
 
     private MenuBar getMenuBar() {
@@ -83,8 +86,9 @@ public class MainPane extends Application implements EventHandler<ActionEvent> {
         congruentialMenu.getItems().addAll(mixedItem, multiplicativeItem, additiveItem, quadraticItem, blumBlumShubItem);
         return new MenuBar(noCongruentialMenu, congruentialMenu);
     }
-//    public void setBottomPane(Pane bottomPane) {
-//        mainPane.getChildren().remove(1);
-//        mainPane.getChildren().add(bottomPane);
-//    }
+
+    public void setBottomPane(VBox bottomPane) {
+        mainPane.getChildren().remove(PANE_TO_DELETE);
+        mainPane.getChildren().add(bottomPane);
+    }
 }
