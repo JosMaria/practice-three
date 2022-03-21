@@ -5,6 +5,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import org.genesiscode.practicethree.model.Mixed;
+import org.genesiscode.practicethree.view.MessageBox;
 import org.genesiscode.practicethree.view.Row;
 
 import java.util.List;
@@ -16,9 +18,13 @@ public class MixedPane extends MyPane {
     private TextField seedField, multiplicativeConstantField, additiveConstantField, moduleField;
     private Button startButton;
     private TableView<Row> table = new TableView<>();
+    private final Mixed mixed;
+
+    private static final String MESSAGE_FAILED = "Error al empezar el proceso";
 
     private MixedPane() {
         super("Congruencial Mixto");
+        mixed = new Mixed();
         loadControls();
         buildPane();
     }
@@ -63,10 +69,30 @@ public class MixedPane extends MyPane {
 
         startButton = new Button("Comenzar");
         startButton.setOnAction(actionEvent -> startProcess());
+
+        table = new TableView<>();
     }
 
     private void startProcess() {
+        String inputSeed = seedField.getText().trim();
+        String inputMultiplicative = multiplicativeConstantField.getText().trim();
+        String inputAdditive = additiveConstantField.getText().trim();
+        String inputModule = moduleField.getText().trim();
 
+        if (inputSeed.isEmpty() || inputMultiplicative.isEmpty() || inputAdditive.isEmpty() || inputModule.isEmpty()) {
+            MessageBox.show("Introducir las variables de entrada.", MESSAGE_FAILED);
+        } else {
+            try {
+                mixed.loadData(Integer.parseInt(inputSeed), Integer.parseInt(inputMultiplicative),
+                        Integer.parseInt(inputAdditive), Integer.parseInt(inputModule));
+                table.setItems(mixed.getAllRows());
+                // TODO: throw MessageBox when period is not complete
+            } catch (NumberFormatException e) {
+                MessageBox.show("Formato de las entradas no valida", MESSAGE_FAILED);
+            } catch(IllegalArgumentException e) {
+                MessageBox.show(e.getMessage(), MESSAGE_FAILED);
+            }
+        }
     }
 
     private TableView<Row> getTable() {
