@@ -46,7 +46,6 @@ public class MiddleSquaresPane extends MyPane {
                                     getTable());
         mainPane.setSpacing(10);
         mainPane.setPadding(new Insets(10));
-
     }
 
     private void loadControls() {
