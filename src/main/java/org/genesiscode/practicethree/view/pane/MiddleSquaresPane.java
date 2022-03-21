@@ -5,7 +5,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import org.genesiscode.practicethree.view.utils.Row;
+import org.genesiscode.practicethree.model.MiddleSquares;
+import org.genesiscode.practicethree.view.MessageBox;
+import org.genesiscode.practicethree.view.Row;
 
 import java.util.List;
 
@@ -18,8 +20,13 @@ public class MiddleSquaresPane extends MyPane {
     private Button startButton;
     private TableView<Row> table;
 
+    private final MiddleSquares middleSquares;
+
+    private static final String MESSAGE_FAILED = "Error al empezar el proceso";
+
     private MiddleSquaresPane() {
         super("Cuadrados Medios");
+        middleSquares = new MiddleSquares();
         loadControls();
         buildPane();
     }
@@ -59,6 +66,24 @@ public class MiddleSquaresPane extends MyPane {
         table = new TableView<>();
     }
 
+    private void startProcess() {
+        String limitInput = limitField.getText().trim();
+        String seedInput = seedField.getText().trim();
+
+        if (seedInput.isEmpty() || limitInput.isEmpty()) {
+            MessageBox.show("Introducir las variables de entrada.", MESSAGE_FAILED);
+        } else {
+            try {
+                middleSquares.loadData(Long.parseLong(seedInput), Integer.parseInt(limitInput));
+                table.setItems(middleSquares.getAllRows());
+            } catch (NumberFormatException e) {
+                MessageBox.show("Formato de las entradas no valida", MESSAGE_FAILED);
+            } catch (IllegalArgumentException e) {
+                MessageBox.show(e.getMessage(), MESSAGE_FAILED);
+            }
+        }
+    }
+
     private TableView<Row> getTable() {
         TableColumn<Row, Integer> numberRow = new TableColumn<>("Number");
         numberRow.setMinWidth(100);
@@ -86,9 +111,5 @@ public class MiddleSquaresPane extends MyPane {
 
         table.getColumns().addAll(List.of(numberRow, columnOne, columnTwo, columnThree, columnFour, columnFive));
         return table;
-    }
-
-    private void startProcess() {
-
     }
 }

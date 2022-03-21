@@ -1,4 +1,4 @@
-package org.genesiscode.practicethree.view.utils;
+package org.genesiscode.practicethree.view;
 
 public class Row {
 
