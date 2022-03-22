@@ -1,6 +1,7 @@
 package org.genesiscode.practicethree.view.utils;
 
 import org.genesiscode.practicethree.view.Row;
+import org.genesiscode.practicethree.view.RowMultiplicativeAndBlum;
 
 public class Utility {
 
@@ -31,5 +32,12 @@ public class Utility {
                 && rowOne.getColumnThree().equals(rowTwo.getColumnThree())
                 && rowOne.getColumnFour().equals(rowTwo.getColumnFour())
                 && rowOne.getColumnFive().equals(rowTwo.getColumnFive());
+    }
+
+    public static boolean areRowsMultiplicativeEquals(RowMultiplicativeAndBlum rowOne, RowMultiplicativeAndBlum rowTwo) {
+        return rowOne.getColumnOne().equals(rowTwo.getColumnOne())
+                && rowOne.getColumnTwo().equals(rowTwo.getColumnTwo())
+                && rowOne.getColumnThree().equals(rowTwo.getColumnThree())
+                && rowOne.getColumnFour().equals(rowTwo.getColumnFour());
     }
 }
