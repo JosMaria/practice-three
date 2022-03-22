@@ -83,10 +83,14 @@ public class MixedPane extends MyPane {
             MessageBox.show("Introducir las variables de entrada.", MESSAGE_FAILED);
         } else {
             try {
+                int module = Integer.parseInt(inputModule);
                 mixed.loadData(Integer.parseInt(inputSeed), Integer.parseInt(inputMultiplicative),
-                        Integer.parseInt(inputAdditive), Integer.parseInt(inputModule));
+                        Integer.parseInt(inputAdditive), module);
                 table.setItems(mixed.getAllRows());
                 // TODO: throw MessageBox when period is not complete
+                if (module != table.getItems().size() - 1) {
+                    MessageBox.show("Periodo Incompleto", "INCOMPLETO");
+                }
             } catch (NumberFormatException e) {
                 MessageBox.show("Formato de las entradas no valida", MESSAGE_FAILED);
             } catch(IllegalArgumentException e) {

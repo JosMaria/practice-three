@@ -30,6 +30,12 @@ public class Mixed implements CongruentialGenerator {
         } else if (module <= multiplicativeConstant || module <= additiveConstant || module <= seed) {
             messageToNotification = "El module (m) debe ser mayor a los valores (c, Xo, a).";
             return false;
+        } else if (multiplicativeConstant % 2 == 0) {
+            messageToNotification = "La constante multiplicativa debe ser impar";
+            return false;
+        } else if (additiveConstant % 2 == 0) {
+            messageToNotification = "La constante aditiva debe ser impar";
+            return false;
         }
         // TODO: Increment more restrictions
         return true;
