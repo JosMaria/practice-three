@@ -7,17 +7,15 @@ import org.genesiscode.practicethree.view.RowMultiplicativeAndBlum;
 public class BlumBlumShub {
 
     private int seed;
-    private int p;
-    private int q;
+    private int m;
     private int limit;
     private String messageToNotification;
     private final ObservableList<RowMultiplicativeAndBlum> rows = FXCollections.observableArrayList();
 
-    public void loadData(int seed, int p, int q, int limit) {
-        if (areRestrictionsValid(seed, p, q, limit)) {
+    public void loadData(int seed, int m, int limit) {
+        if (areRestrictionsValid(seed, m, limit)) {
             this.seed = seed;
-            this.p = p;
-            this.q = q;
+            this.m = m;
             this.limit = limit;
         } else {
             throw new IllegalArgumentException(messageToNotification);
@@ -26,7 +24,6 @@ public class BlumBlumShub {
 
     public ObservableList<RowMultiplicativeAndBlum> getAllRows() {
         rows.clear();
-        long m =  (long) p * q;
         for (int i = 0; i < limit; i++) {
             long columnOne = (long) seed * seed;
             long ultColumn = columnOne % m;
@@ -37,8 +34,8 @@ public class BlumBlumShub {
         return rows;
     }
 
-    private boolean areRestrictionsValid(int seed, int p, int q, int limit) {
-        if (seed <= 0 || p <= 0 || q <= 0 || limit <= 0) {
+    private boolean areRestrictionsValid(int seed, int m, int limit) {
+        if (seed <= 0 || m <= 0 || limit <= 0) {
             messageToNotification = "Los valores ingresados deben ser mayores a 0.";
             return false;
         }
