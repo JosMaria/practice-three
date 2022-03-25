@@ -82,11 +82,11 @@ public class QuadraticPane extends MyPane {
         if (existInput(aField) && existInput(bField) && existInput(cField) && existInput(mField) && existInput(seedField)) {
             try {
                 quadratic.loadData(Integer.parseInt(aField.getText()), Integer.parseInt(bField.getText()),
-                        Integer.parseInt(cField.getText()), Long.parseLong(mField.getText()),
-                        Long.parseLong(seedField.getText()));
-                table.setItems(quadratic.getAllRows());
+                        Integer.parseInt(cField.getText()), Long.parseLong(mField.getText()), Long.parseLong(seedField.getText()));
             } catch (IllegalArgumentException e) {
                 MessageBox.show(e.getMessage(), MESSAGE_FAILED);
+            } finally {
+                table.setItems(quadratic.getAllRows());
             }
         } else {
             MessageBox.show("Introducir las variables de entrada.", MESSAGE_FAILED);
