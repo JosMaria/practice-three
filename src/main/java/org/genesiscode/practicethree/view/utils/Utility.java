@@ -1,6 +1,7 @@
 package org.genesiscode.practicethree.view.utils;
 
 import org.genesiscode.practicethree.view.Row;
+import org.genesiscode.practicethree.view.RowDecimalMultiplicative;
 import org.genesiscode.practicethree.view.RowMultiplicativeAndBlum;
 
 import java.util.ArrayList;
@@ -41,6 +42,13 @@ public class Utility {
         return rowOne.getColumnOne().equals(rowTwo.getColumnOne())
                 && rowOne.getColumnTwo().equals(rowTwo.getColumnTwo())
                 && rowOne.getColumnThree().equals(rowTwo.getColumnThree())
+                && rowOne.getColumnFour().equals(rowTwo.getColumnFour());
+    }
+
+    public static boolean areDecimalMultiplicativeRowEquals(RowDecimalMultiplicative rowOne, RowDecimalMultiplicative rowTwo) {
+        return rowOne.getColumnOne() == rowTwo.getColumnOne()
+                && rowOne.getColumnTwo() == rowTwo.getColumnTwo()
+                && rowOne.getColumnThree() == rowTwo.getColumnThree()
                 && rowOne.getColumnFour().equals(rowTwo.getColumnFour());
     }
 
