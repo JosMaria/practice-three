@@ -4,6 +4,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.genesiscode.practicethree.view.Row;
 
+import static org.genesiscode.practicethree.view.utils.Utility.isModuleValid;
+
 public class Quadratic {
 
     private int a, b, c;
@@ -59,17 +61,5 @@ public class Quadratic {
             messageToNotification += "(m) no cumple la propiedad (m = 2^g)";
         }
         return messageToNotification.isEmpty();
-    }
-
-    private boolean isModuleValid(long module) {
-        int exponent = 1;
-        boolean isModuleValid = false;
-        while (! isModuleValid && Math.pow(2, exponent) <= module) {
-            if (Math.pow(2, exponent) == module) {
-                isModuleValid = true;
-            }
-            exponent++;
-        }
-        return isModuleValid;
     }
 }
